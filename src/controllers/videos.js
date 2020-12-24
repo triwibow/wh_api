@@ -209,17 +209,10 @@ const addVideo = async (req, res) => {
             }
         );
 
-        const video = await Video.findOne({
-            where: {
-                id: postVideo.id
-            }
-
-        });
-
         return res.send({
             status: "success",
             data: {
-                video
+                video: 1
             }
         });
 

@@ -19,7 +19,6 @@ module.exports = (sequelize, DataTypes) => {
         as:'comments'
       });
 
-      Video.hasMany(models.Subscribe);
     }
   };
   Video.init({

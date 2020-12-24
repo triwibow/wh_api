@@ -25,7 +25,6 @@ module.exports = (sequelize, DataTypes) => {
 
       Chanel.hasMany(models.Video);
       Chanel.hasMany(models.Comment);
-      Chanel.hasMany(models.Subscribe)
     }
   };
   Chanel.init({

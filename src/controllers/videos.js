@@ -203,16 +203,9 @@ const addVideo = async (req, res) => {
             {
                 ...body,
                 chanelId: id,
-                ChanelId: id,
                 thumbnail: JSON.stringify(thumbnailUpload),
                 video: JSON.stringify(videoUpload),
                 viewCount: 0
-            },
-            {
-                include: {
-                    model: Chanel,
-                    as: "chanel"
-                }
             }
         );
 

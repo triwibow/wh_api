@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Video.belongsTo(models.Chanel, {
+        foreignKey:'chanelId',
         as:'chanel'
       });
 

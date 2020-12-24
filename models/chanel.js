@@ -23,7 +23,10 @@ module.exports = (sequelize, DataTypes) => {
         through:models.Subscribe
       });
 
-      Chanel.hasMany(models.Video);
+      Chanel.hasMany(models.Video, {
+        foreignKey: 'chanelId',
+        as:'videos'
+      });
       Chanel.hasMany(models.Comment);
     }
   };

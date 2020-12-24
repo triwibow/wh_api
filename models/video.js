@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       Video.hasMany(models.Comment, {
-        foreignKey: 'videoId'
+        foreignKey: 'videoId',
         as:'comments'
       });
 

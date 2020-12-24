@@ -209,7 +209,7 @@ const getVideosSubscribtion = async (req, res) => {
 
         const videos = await Video.findAll({
             where: {
-                ChanelId: subscribtionsChanelId
+                [chanel.id]: subscribtionsChanelId
             },
             attributes: {
                 exclude: ['createdAt', 'updatedAt', 'chanelId', 'ChanelId']

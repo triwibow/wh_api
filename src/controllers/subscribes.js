@@ -151,20 +151,30 @@ const getSubscribtion = async (req, res) => {
     try {
         const { id } = req.user;
 
-        const subscribtion = await sequelize.query(
-            `SELECT chanels.id, chanels.email, chanels.chanelName, chanels.description, chanels.cover, chanels.photo FROM "Subscribes" WHERE subscriberId = ${id} LEFT JOIN "Chanels" on subscribes.chanelId = chanels.id`,
-            {
-              replacements: { status: 'active' },
-              type: QueryTypes.SELECT,
-              raw: true
+        const subscribtion = await Chanel.findOne({
+            where:{
+                id
+            },
+            attributes: {
+                exclude: ['createdAt', 'updatedAt', 'password', 'chanelName', 'cover', 'description', 'email', 'id', 'photo']
+            },
+            include: {
+                model: Chanel,
+                as: 'subscribtion',
+                through: {
+                    attributes : []
+                },
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'password']
+                }
             }
-        );
+        });
 
 
         res.send({
             status: "success",
             data : {
-                subscribtion
+                subscribtion: subscribtion.subscribtion
             }
         });
 
@@ -182,19 +192,39 @@ const getSubscribtion = async (req, res) => {
 }
 
 const getVideosSubscribtion = async (req, res) => {
-    try {
+     try {
         const { id } = req.user;
 
-        const response = await sequelize.query(
-            `SELECT videos.id, title, videos.thumbnail, videos.description, video, videos.createdAt, viewCount, chanels.id as chanelId, chanels.email, chanels.chanelName, chanels.description as chanelDescription, chanels.cover, chanels.photo FROM videos LEFT JOIN chanels on chanels.id = videos.chanelId LEFT JOIN subscribes on subscribes.chanelId = chanels.id WHERE subscribes.subscriberId = ${id}`,
-            {
-              replacements: { status: 'active' },
-              type: QueryTypes.SELECT,
-              raw: true
+        const subscribtions = await Subscribe.findAll({
+            where: {
+                subscriberId : id
             }
-        );
+        });
 
-        if(!response){
+        const subscribtionsChanelId = [];
+
+        subscribtions.map((subscribtion) => {
+            subscribtionsChanelId.push(subscribtion.chanelId)
+        })
+
+        const videos = await Video.findAll({
+            where: {
+                ChanelId: subscribtionsChanelId
+            },
+            attributes: {
+                exclude: ['createdAt', 'updatedAt', 'chanelId', 'ChanelId']
+            },
+            include: {
+                model: Chanel,
+                as:'chanel',
+                attributes: {
+                    exclude:['password', 'createdAt', 'updatedAt']
+                }
+            }
+        })
+        
+
+        if(!videos){
             return res.send({
                 status: "error",
                 error: {
@@ -203,29 +233,7 @@ const getVideosSubscribtion = async (req, res) => {
             });
         }
 
-        const videos = [];
-
-        response.map(video => {
-            const tmpData = {
-                id: video.id,
-                title: video.title,
-                description: video.description,
-                thumbnail: video.thumbnail,
-                video: video.video,
-                createdAt: video.createdAt,
-                viewCount: video.viewCount,
-                chanel: {
-                    id: video.chanelId,
-                    email: video.email,
-                    chanelName: video.chanelName,
-                    description: video.description,
-                    thumbnail: video.chanelThumb,
-                    photo: video.photo
-                }
-                
-            }
-            videos.push(tmpData);
-        });
+        
 
         res.send({
             status: "success",

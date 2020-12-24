@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Chanel.belongsToMany(models.Chanel, {
-        as:'chanels',
+        as:'subscribtion',
         foreignKey:'subscriberId',
         through:models.Subscribe
       });

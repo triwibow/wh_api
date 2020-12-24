@@ -207,6 +207,12 @@ const addVideo = async (req, res) => {
                 thumbnail: JSON.stringify(thumbnailUpload),
                 video: JSON.stringify(videoUpload),
                 viewCount: 0
+            },
+            {
+                include: {
+                    model: Chanel,
+                    as: "chanel"
+                }
             }
         );
 

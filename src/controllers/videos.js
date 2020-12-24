@@ -202,8 +202,7 @@ const addVideo = async (req, res) => {
         const postVideo = await Video.create(
             {
                 ...body,
-                chanelid: id,
-                ChanelId: id,
+                chanelId: id,
                 thumbnail: JSON.stringify(thumbnailUpload),
                 video: JSON.stringify(videoUpload),
                 viewCount: 0

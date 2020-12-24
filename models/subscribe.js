@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Subscribe.belongsTo(models.Chanel);
+      Subscribe.belongsTo(models.Video);
       
     }
   };

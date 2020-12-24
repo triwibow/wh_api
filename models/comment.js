@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
 
       Comment.belongsTo(models.Chanel, {
         as: 'chanel',
-        foreignKey: 'chanelid'
+        foreignKey: 'chanelId'
       });
     }
   };

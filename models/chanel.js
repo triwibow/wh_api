@@ -27,7 +27,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'chanelId',
         as:'videos'
       });
-      Chanel.hasMany(models.Comment);
+      Chanel.hasMany(models.Comment, {
+        foreignKey: 'chanelId',
+        as:'chanel'
+      });
     }
   };
   Chanel.init({

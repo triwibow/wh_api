@@ -268,6 +268,15 @@ const checkSubscribe = async (req, res) => {
         const { id } = req.user;
         const { body } = req;
 
+        if(!body.chanelId){
+            return res.send({
+                status: true,
+                error:{
+                    message: "Resource not found"
+                }
+            })
+        }
+
         const isChanelExist = await Chanel.findOne({
             where : {
                 id: body.chanelId

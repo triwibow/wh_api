@@ -205,7 +205,16 @@ const getVideosSubscribtion = async (req, res) => {
 
         subscribtions.map((subscribtion) => {
             subscribtionsChanelId.push(subscribtion.chanelId)
-        })
+        });
+
+        if(subscribtionsChanelId.length === 0 ){
+            return res.send({
+                status: 'error',
+                error: {
+                    message: "Resource not found"
+                }
+            });
+        }
 
         const videos = await Video.findAll({
             where: {

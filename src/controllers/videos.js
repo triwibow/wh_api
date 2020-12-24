@@ -202,14 +202,11 @@ const addVideo = async (req, res) => {
         const postVideo = await Video.create(
             {
                 ...body,
-                chanelId: id,
+                "$Videos.chanelId$": id,
                 thumbnail: JSON.stringify(thumbnailUpload),
                 video: JSON.stringify(videoUpload),
                 viewCount: 0
             },
-            attributes: {
-                exclude: ['ChanelId']
-            }
         );
 
         return res.send({

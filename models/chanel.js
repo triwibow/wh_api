@@ -14,13 +14,13 @@ module.exports = (sequelize, DataTypes) => {
       Chanel.belongsToMany(models.Chanel, {
         as:'chanels',
         foreignKey:'subscriberId',
-        through:'subscribes'
+        through:models.Subscribe
       });
 
       Chanel.belongsToMany(models.Chanel, {
         as:'subscribers',
         foreignKey:'chanelId',
-        through:'subscribes'
+        through:models.Subscribe
       });
 
       Chanel.hasMany(models.Video);

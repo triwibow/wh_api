@@ -155,7 +155,8 @@ const getSubscribtion = async (req, res) => {
             `SELECT chanels.id, chanels.email, chanels.chanelName, chanels.description, chanels.cover, chanels.photo FROM subscribes LEFT JOIN chanels on chanels.id = subscribes.chanelId WHERE subscribes.subscriberId = ${id}`,
             {
               replacements: { status: 'active' },
-              type: QueryTypes.SELECT
+              type: QueryTypes.SELECT,
+              raw: true
             }
         );
 
@@ -188,7 +189,8 @@ const getVideosSubscribtion = async (req, res) => {
             `SELECT videos.id, title, videos.thumbnail, videos.description, video, videos.createdAt, viewCount, chanels.id as chanelId, chanels.email, chanels.chanelName, chanels.description as chanelDescription, chanels.cover, chanels.photo FROM videos LEFT JOIN chanels on chanels.id = videos.chanelId LEFT JOIN subscribes on subscribes.chanelId = chanels.id WHERE subscribes.subscriberId = ${id}`,
             {
               replacements: { status: 'active' },
-              type: QueryTypes.SELECT
+              type: QueryTypes.SELECT,
+              raw: true
             }
         );
 

@@ -206,13 +206,46 @@ const addVideo = async (req, res) => {
                 thumbnail: JSON.stringify(thumbnailUpload),
                 video: JSON.stringify(videoUpload),
                 viewCount: 0
-            }
+            },
         );
+
+        const video = await Video.findOne({
+            where: {
+                id: postVideo.id
+            },
+            attributes:{
+                exclude:['updatedAt','chanelId', 'chanelid', 'ChanelId'],
+            },
+            include: [
+                {
+                    model: Chanel,
+                    as:'chanel',
+                    attributes:{
+                        exclude:['updatedAt', 'createdAt', 'password', 'id']
+                    }
+                },
+                {
+                    model:Comment,
+                    as:"comments",
+                    attributes:{
+                        exclude:['chanelid', 'videoid', 'updatedAt', 'createdAt', 'ChanelId', 'VideoId', 'chanelId']
+                    },
+                    include: {
+                        model: Chanel,
+                        as:'chanel',
+                        attributes:{
+                            exclude:['updatedAt', 'createdAt', 'password']
+                        }
+                    }
+                }
+            ]
+
+        });
 
         return res.send({
             status: "success",
             data: {
-                video: 1
+                video
             }
         });
 

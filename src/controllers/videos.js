@@ -206,6 +206,9 @@ const addVideo = async (req, res) => {
                 thumbnail: JSON.stringify(thumbnailUpload),
                 video: JSON.stringify(videoUpload),
                 viewCount: 0
+            },
+            attributes: {
+                exclude: ['ChanelId']
             }
         );
 

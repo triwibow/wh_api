@@ -212,33 +212,7 @@ const addVideo = async (req, res) => {
         const video = await Video.findOne({
             where: {
                 id: postVideo.id
-            },
-            attributes:{
-                exclude:['updatedAt','chanelId', 'chanelid', 'ChanelId'],
-            },
-            include: [
-                {
-                    model: Chanel,
-                    as:'chanel',
-                    attributes:{
-                        exclude:['updatedAt', 'createdAt', 'password', 'id']
-                    }
-                },
-                {
-                    model:Comment,
-                    as:"comments",
-                    attributes:{
-                        exclude:['chanelid', 'videoid', 'updatedAt', 'createdAt', 'ChanelId', 'VideoId', 'chanelId']
-                    },
-                    include: {
-                        model: Chanel,
-                        as:'chanel',
-                        attributes:{
-                            exclude:['updatedAt', 'createdAt', 'password']
-                        }
-                    }
-                }
-            ]
+            }
 
         });
 

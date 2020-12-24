@@ -6,6 +6,7 @@ const { uploadCloudinary } = require('../middleware/uploadCloudinary')
 const { upload } = require('../middleware/upload');
 const { register } = require('../controllers/register');
 const { login } = require('../controllers/login');
+const { search } = require('../controllers/search');
 
 const {
     getChanels,
@@ -77,5 +78,8 @@ router.post('/check-subscribe', auth, checkSubscribe);
 
 // check auth
 router.get('/auth', auth, checkAuth);
+
+// search
+router.post('/search', auth, search);
 
 module.exports = router;

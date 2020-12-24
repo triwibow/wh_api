@@ -152,7 +152,7 @@ const getSubscribtion = async (req, res) => {
         const { id } = req.user;
 
         const subscribtion = await sequelize.query(
-            `SELECT "Chanels".id, "Chanels".email, "Chanels".chanelName, "Chanels".description, "Chanels".cover, "Chanels".photo FROM "Subscribes" LEFT JOIN "Chanels" on "Subscribes".chanelId = "Chanels".id WHERE "Subscribe".subscriberId = ${id}`,
+            `SELECT chanels.id, chanels.email, chanels.chanelName, chanels.description, chanels.cover, chanels.photo FROM "Subscribes" JOIN "Chanels" on subscribes.chanelId = chanels.id AND subscriberId = ${id}`,
             {
               replacements: { status: 'active' },
               type: QueryTypes.SELECT,

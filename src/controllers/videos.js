@@ -16,6 +16,9 @@ const getVideos = async (req, res) => {
             subQuery:false,
             offset: parseInt(offset),
             limit: parseInt(limit),
+            order: [
+                ['id', 'DESC'],
+            ],
             attributes: {
                 exclude:['updatedAt','chanelId', 'chanelid', 'ChanelId']
             },

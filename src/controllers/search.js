@@ -13,7 +13,7 @@ const search = async (req, res) => {
             where:{
                 [Op.or]:[
                     {
-                        "title":{[Op.like]:`%${keyword}%`}
+                        "title":{[Op.iLike]:`%${keyword}%`}
                     }
                 ]
             },

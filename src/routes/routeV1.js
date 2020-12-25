@@ -6,7 +6,6 @@ const { uploadCloudinary } = require('../middleware/uploadCloudinary')
 const { upload } = require('../middleware/upload');
 const { register } = require('../controllers/register');
 const { login } = require('../controllers/login');
-const { search } = require('../controllers/search');
 
 const {
     getChanels,
@@ -41,6 +40,7 @@ const {
 } = require('../controllers/subscribes');
 
 const { checkAuth } = require('../controllers/checkAuth');
+const { search } = require('../controllers/search');
 
 // register
 router.post('/register', register);
@@ -56,7 +56,7 @@ router.put('/chanel/:id', auth, uploadCloudinary(["photo", "cover"]), editChanel
 router.delete('/chanel/:id', auth, deleteChanel);
 
 // videos
-router.get('/videos', getVideos);
+router.get('/videos/:offset/:limit', getVideos);
 router.get('/video/:id', getVideoById);
 router.put('/video/:videoId', auth, upload(["thumbnail", "video"]), editVideo);
 router.delete('/video/:videoId', auth, deleteVideo);
@@ -80,6 +80,7 @@ router.post('/check-subscribe', auth, checkSubscribe);
 router.get('/auth', auth, checkAuth);
 
 // search
+
 router.post('/search', auth, search);
 
 module.exports = router;
